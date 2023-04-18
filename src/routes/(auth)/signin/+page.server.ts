@@ -18,7 +18,6 @@ export const actions = {
         const user = await prisma.user.findFirst({
             where: { email },
         });
-        console.log(user, password);
         if (!user || !compareSync(password, user.password)) {
             return fail(401, { email, password, invalid: true });
         }
