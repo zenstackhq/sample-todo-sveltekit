@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = 'postgresql'
+  url      = env('DATABASE_URL')
+}
+
+/*
+ * Enum for user's role in a space
+ */
+enum SpaceUserRole {
+  USER
+  ADMIN
+}
+
+/*
+ * Model for a space in which users can collaborate on Lists and Todos
+ */
+model Space {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String @length(4, 50)
+  slug String @unique @regex('^[0-9a-zA-Z]{4,16}$')
+  members SpaceUser[]
+  lists List[]
+
+  // require login
+  @@deny('all', auth() == null)
+
+  // everyone can create a space
+  @@allow('create', true)
+
+  // any user in the space can read the space
+  @@allow('read', members?[user == auth()])
+
+  // space admin can update and delete
+  @@allow('update,delete', members?[user == auth() && role == ADMIN])
+}
+
+/*
+ * Model representing membership of a user in a space
+ */
+model SpaceUser {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  spaceId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  role SpaceUserRole
+  @@unique([userId, spaceId])
+
+  // require login
+  @@deny('all', auth() == null)
+
+  // space admin can create/update/delete
+  @@allow('create,update,delete', space.members?[user == auth() && role == ADMIN])
+
+  // user can read entries for spaces which he's a member of
+  @@allow('read', space.members?[user == auth()])
+}
+
+/*
+  * User model
+  */
+model User {
+  id String @id @default(cuid())
+  email String @unique @email
+  password String @password @omit @length(6, 32)
+  name String?
+  posts Post[]
+  spaces SpaceUser[]
+  todos Todo[]
+  lists List[]
+  @@allow('create,read', true)
+  @@allow('all', auth() == this)
+}
+
+/*
+ * Model for a Todo list
+ */
+model List {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  spaceId String
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId String
+  title String @length(1, 100)
+  private Boolean @default(false)
+  todos Todo[]
+
+  // require login
+  @@deny('all', auth() == null)
+
+  // can be read by owner or space members (only if not private) 
+  @@allow('read', owner == auth() || (space.members?[user == auth()] && !private))
+
+  // when create, owner must be set to current user, and user must be in the space
+  @@allow('create', owner == auth() && space.members?[user == auth()])
+
+  // when create, owner must be set to current user, and user must be in the space
+  // update is not allowed to change owner
+  @@allow('update', owner == auth() && space.members?[user == auth()] && future().owner == owner)
+
+  // can be deleted by owner
+  @@allow('delete', owner == auth())
+}
+
+/*
+ * Model for a single Todo
+ */
+model Todo {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId String
+  list List @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId String
+  title String @length(1, 100)
+  completedAt DateTime?
+
+  // require login
+  @@deny('all', auth() == null)
+
+  // owner has full access, also space members have full access (if the parent List is not private)
+  @@allow('all', list.owner == auth())
+  @@allow('all', list.space.members?[user == auth()] && !list.private)
+
+  // update cannot change owner
+  @@deny('update', future().owner != owner)
+}
+
+model Post {
+  id String @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title String
+  content String?
+  published Boolean @default(false)
+  viewCount Int @default(0)
+  author User? @relation(fields: [authorId], references: [id])
+  authorId String?
+}
