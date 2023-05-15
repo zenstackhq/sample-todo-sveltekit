@@ -6,7 +6,7 @@
 
 <div class="tooltip" data-tip={user.name || user.email}>
     <img
-        src={'/avatar.jpg'}
+        src={`https://picsum.photos/seed/${user.email}/200/300`}
         alt="avatar"
         class="rounded-full"
         style="width: {size}px; height: {size}px;"

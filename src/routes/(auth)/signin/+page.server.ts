@@ -2,7 +2,8 @@ import { createToken } from '$lib/auth';
 import { JWT_TOKEN_COOKIE_NAME } from '$lib/constant';
 import prisma from '$lib/prisma';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import { compareSync } from 'bcryptjs';
+import pkg from 'bcryptjs';
+const { compareSync } = pkg;
 
 export const actions = {
     default: async ({ request, cookies }) => {
