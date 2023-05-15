@@ -15,6 +15,12 @@ enum SpaceUserRole {
   ADMIN
 }
 
+plugin tanstack {
+  provider = '@zenstackhq/tanstack-query'
+  output = 'src/lib/hooks'
+  framework = 'svelte'
+}
+
 /*
  * Model for a space in which users can collaborate on Lists and Todos
  */
@@ -72,7 +78,6 @@ model User {
   email String @unique @email
   password String @password @omit @length(6, 32)
   name String?
-  posts Post[]
   spaces SpaceUser[]
   todos Todo[]
   lists List[]
@@ -135,16 +140,4 @@ model Todo {
 
   // update cannot change owner
   @@deny('update', future().owner != owner)
-}
-
-model Post {
-  id String @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title String
-  content String?
-  published Boolean @default(false)
-  viewCount Int @default(0)
-  author User? @relation(fields: [authorId], references: [id])
-  authorId String?
 }

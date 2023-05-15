@@ -1,7 +1,44 @@
 <script lang="ts">
-    import type { ActionData } from './$types';
+    import { goto } from '$app/navigation';
+    import { useCreateUser } from '$lib/hooks';
 
-    export let form: ActionData;
+    let email = '';
+    let password = '';
+    const createUser = useCreateUser();
+
+    function onCreateUser() {
+        $createUser.mutate({
+            data: { email, password },
+        });
+    }
+
+    $: if ($createUser.isSuccess) {
+        // login after a successful signup
+        fetch('/api/auth/signin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        }).then((res) => {
+            if (res.ok) {
+                goto('/');
+            }
+        });
+    }
+
+    function formatError(err: any) {
+        if (!err) {
+            return '';
+        }
+        if (err?.info?.code === 'P2002') {
+            return 'Email already registered!';
+        } else {
+            return err?.info?.message || err?.message;
+        }
+    }
+
+    $: errMsg = formatError($createUser.error);
 </script>
 
 <div>
@@ -21,15 +58,13 @@
                 <h2 class="text-2xl font-bold text-gray-900 lg:text-3xl">
                     Create a Free Account
                 </h2>
-                <form class="mt-8" action="#" method="post">
-                    {#if form?.missing}
-                        <p class="text-red-600 my-2">Missing field required!</p>
-                    {/if}
-                    {#if form?.dup}
-                        <p class="text-red-600 my-2">
-                            Email aready registered!
-                        </p>
-                    {/if}
+                <form
+                    class="mt-8"
+                    action="#"
+                    method="post"
+                    on:submit|preventDefault={onCreateUser}
+                >
+                    <p class="text-red-600 my-2">{errMsg}</p>
                     <div class="mb-6">
                         <label
                             for="email"
@@ -43,7 +78,7 @@
                             name="email"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                             placeholder="Email address"
-                            value={form?.email ?? ''}
+                            bind:value={email}
                             required
                         />
                     </div>
@@ -60,7 +95,7 @@
                             name="password"
                             placeholder="••••••••"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-                            value={form?.password ?? ''}
+                            bind:value={password}
                             required
                         />
                     </div>
@@ -90,7 +125,12 @@
                             </label>
                         </div>
                     </div>
-                    <button class="btn btn-primary mt-4" type="submit">
+                    <button
+                        class="btn btn-primary mt-4"
+                        class:loading={$createUser.isLoading}
+                        class:btn-disabled={$createUser.isLoading}
+                        type="submit"
+                    >
                         Create account
                     </button>
                     <div class="mt-4 text-sm font-medium text-gray-500">

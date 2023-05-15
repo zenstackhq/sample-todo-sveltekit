@@ -1,8 +1,10 @@
 <script lang="ts">
     import type { Space, User } from '@prisma/client';
+    import { getContext } from 'svelte';
     import Avatar from './Avatar.svelte';
 
-    export let user: User;
+    const user = getContext<User>('currentUser');
+
     export let space: Space | undefined = undefined;
 </script>
 
@@ -24,7 +26,7 @@
         <div class="dropdown dropdown-end">
             <!-- svelte-ignore a11y-label-has-associated-control -->
             <label tabIndex={0} class="btn btn-ghost btn-circle avatar">
-                <Avatar {user} />
+                <Avatar />
             </label>
             <ul
                 tabIndex={0}

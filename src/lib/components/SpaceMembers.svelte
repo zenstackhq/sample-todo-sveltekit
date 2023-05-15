@@ -5,7 +5,6 @@
     import Avatar from './Avatar.svelte';
     import ManageMembers from './ManageMembers.svelte';
 
-    export let user: User;
     export let space: Space;
     export let members: (SpaceUser & { user: User })[];
 </script>
@@ -18,7 +17,7 @@
     <div class="flex items-center">
         <label class="mr-1 modal-button cursor-pointer" for="management-modal">
             {#each members as member (member.id)}
-                <Avatar user={member.user} size={32} />
+                <Avatar size={32} />
             {/each}
         </label>
     </div>
@@ -32,7 +31,7 @@
             </h3>
 
             <div class="p-4 mt-4">
-                <ManageMembers {user} {space} {members} />
+                <ManageMembers {space} {members} />
             </div>
 
             <div class="modal-action">

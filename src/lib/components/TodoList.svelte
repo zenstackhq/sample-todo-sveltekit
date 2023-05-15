@@ -1,6 +1,7 @@
 <script lang="ts">
     import { invalidateAll } from '$app/navigation';
     import { page } from '$app/stores';
+    import { useDeleteList } from '$lib/hooks';
     import type { List, User } from '@prisma/client';
     import { LockClosed, Trash } from '@steeze-ui/heroicons';
     import { Icon } from '@steeze-ui/svelte-icon';
@@ -8,23 +9,23 @@
     import Avatar from './Avatar.svelte';
     import TimeInfo from './TimeInfo.svelte';
 
-    export let value: List & { owner: User };
+    const deleteList = useDeleteList();
 
-    let form: HTMLFormElement;
+    $: if ($deleteList.error) {
+        alert(($deleteList.error as any).info?.message);
+    }
+
+    $: if ($deleteList.isSuccess) {
+        invalidateAll();
+    }
 
     async function onDelete() {
         if (confirm('Are you sure you want to delete this list?')) {
-            const r = await fetch(`/api/list/${value.id}`, {
-                method: 'DELETE',
-            });
-            if (r.status !== 200) {
-                const { message } = await r.json();
-                alert(message);
-            } else {
-                await invalidateAll();
-            }
+            $deleteList.mutate({ where: { id: value.id } });
         }
     }
+
+    export let value: List & { owner: User };
 </script>
 
 <div class="card w-80 bg-base-100 shadow-xl cursor-pointer hover:bg-gray-50">
@@ -51,13 +52,13 @@
                 <TimeInfo {value} />
             </div>
             <div class="flex space-x-2">
-                <Avatar user={value.owner} size={18} />
+                <Avatar size={18} />
                 {#if value.private}
                     <div class="tooltip" data-tip="Private">
                         <Icon src={LockClosed} class="w-4 h-4 text-gray-500" />
                     </div>
                 {/if}
-                <form bind:this={form} on:submit|preventDefault={onDelete}>
+                <form on:submit|preventDefault={onDelete}>
                     <input type="hidden" name="listId" value={value.id} />
                     <button type="submit" on:click|preventDefault={onDelete}>
                         <Icon

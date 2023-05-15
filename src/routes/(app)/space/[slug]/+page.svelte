@@ -22,11 +22,7 @@
             >
                 Create a list
             </label>
-            <SpaceMembers
-                space={data.space}
-                user={data.user}
-                members={data.members}
-            />
+            <SpaceMembers space={data.space} members={data.members} />
         </div>
 
         <ul class="flex flex-wrap gap-6">

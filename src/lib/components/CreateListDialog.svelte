@@ -1,11 +1,16 @@
 <script lang="ts">
     import { invalidateAll } from '$app/navigation';
+    import { useCreateList } from '$lib/hooks';
     import type { Space } from '@prisma/client';
+    import { getContext } from 'svelte';
 
     let modalOpen = false;
     let titleRef: HTMLElement;
     let title = '';
     let _private = false;
+
+    const user = getContext<{ id: string }>('currentUser');
+    const createList = useCreateList();
 
     export let space: Space;
 
@@ -13,27 +18,26 @@
         setTimeout(() => titleRef.focus(), 100);
     }
 
+    $: if ($createList.isSuccess) {
+        invalidateAll();
+        modalOpen = false;
+        title = '';
+        _private = false;
+    }
+
+    $: if ($createList.error) {
+        alert(($createList.error as any).message);
+    }
+
     async function onCreate() {
-        const r = await fetch('/api/list', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+        $createList.mutate({
+            data: {
                 spaceId: space.id,
                 title,
                 private: _private,
-            }),
+                ownerId: user.id,
+            },
         });
-        if (r.status !== 200) {
-            const { message } = await r.json();
-            alert(message);
-        } else {
-            await invalidateAll();
-            modalOpen = false;
-            title = '';
-            _private = false;
-        }
     }
 </script>
 
@@ -78,6 +82,8 @@
                 <div class="modal-action">
                     <input
                         class="btn btn-primary"
+                        class:loading={$createList.isLoading}
+                        class:btn-disabled={$createList.isLoading}
                         type="submit"
                         value="Create"
                     />
