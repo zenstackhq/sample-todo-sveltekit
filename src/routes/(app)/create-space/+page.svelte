@@ -1,17 +1,24 @@
 <script lang="ts">
     import { enhance } from '$app/forms';
     import { goto } from '$app/navigation';
+    import type { ActionData } from '../$types';
 
-    let name = '';
-    let slug = '';
+    export let form: ActionData;
+
+    let name = form?.name ?? '';
+    let slug = form?.slug ?? '';
 </script>
 
 <div class="flex items-center justify-center h-full">
     <form method="post" use:enhance>
         <h1 class="text-3xl mb-8">Create a space</h1>
+        {#if form?.dup}
+            <p class="text-red-600 my-2">Slug aready in use!</p>
+        {/if}
         <div class="flex-col space-y-4">
             <div>
                 <label for="name" class="text-lg"> Space name </label>
+                <!-- svelte-ignore a11y-autofocus -->
                 <input
                     name="name"
                     type="text"

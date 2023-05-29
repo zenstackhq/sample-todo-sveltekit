@@ -2,8 +2,7 @@ import { createToken } from '$lib/auth';
 import { JWT_TOKEN_COOKIE_NAME } from '$lib/constant';
 import prisma from '$lib/prisma';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import pkg from 'bcryptjs';
-const { compareSync } = pkg;
+import bcrypt from 'bcryptjs';
 
 export const actions = {
     default: async ({ request, cookies }) => {
@@ -19,7 +18,7 @@ export const actions = {
         const user = await prisma.user.findFirst({
             where: { email },
         });
-        if (!user || !compareSync(password, user.password)) {
+        if (!user || !bcrypt.compareSync(password, user.password)) {
             return fail(401, { email, password, invalid: true });
         }
 

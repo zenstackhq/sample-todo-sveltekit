@@ -32,7 +32,7 @@ export const actions = {
             });
         } catch (err) {
             if (isPrismaClientKnownRequestError(err) && err.code === 'P2002') {
-                return error(400, 'Space slug already in use');
+                return fail(400, { name, slug, dup: true });
             } else {
                 throw err;
             }

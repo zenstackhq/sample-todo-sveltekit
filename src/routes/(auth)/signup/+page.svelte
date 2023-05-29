@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { enhance } from '$app/forms';
     import type { ActionData } from './$types';
 
     export let form: ActionData;
@@ -21,10 +22,7 @@
                 <h2 class="text-2xl font-bold text-gray-900 lg:text-3xl">
                     Create a Free Account
                 </h2>
-                <form class="mt-8" action="#" method="post">
-                    {#if form?.missing}
-                        <p class="text-red-600 my-2">Missing field required!</p>
-                    {/if}
+                <form class="mt-8" action="#" method="post" use:enhance>
                     {#if form?.dup}
                         <p class="text-red-600 my-2">
                             Email aready registered!
@@ -81,6 +79,7 @@
                                 class="font-medium text-gray-900"
                             >
                                 I accept the{' '}
+                                <!-- svelte-ignore a11y-invalid-attribute -->
                                 <a
                                     href="#"
                                     class="text-primary-700 hover:underline"

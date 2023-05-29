@@ -2,9 +2,11 @@ import { env } from '$env/dynamic/private';
 import { JWT_TOKEN_COOKIE_NAME } from '$lib/constant';
 import prisma, { getEnhancedPrisma } from '$lib/prisma';
 import type { Handle } from '@sveltejs/kit';
+import { sequence } from '@sveltejs/kit/hooks';
+import zenstack from '@zenstackhq/server/sveltekit';
 import jwt from 'jsonwebtoken';
 
-export const handle = (async ({ event, resolve }) => {
+const auth = (async ({ event, resolve }) => {
     const token = event.cookies.get(JWT_TOKEN_COOKIE_NAME);
     if (token) {
         try {
@@ -29,3 +31,10 @@ export const handle = (async ({ event, resolve }) => {
 
     return resolve(event);
 }) satisfies Handle;
+
+const crud = zenstack.SvelteKitHandler({
+    prefix: '/api/model',
+    getPrisma: (event) => event.locals.db,
+});
+
+export const handle = sequence(auth, crud);
