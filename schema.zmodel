@@ -15,7 +15,7 @@ enum SpaceUserRole {
   ADMIN
 }
 
-plugin tanstack {
+plugin hooks {
   provider = '@zenstackhq/tanstack-query'
   output = 'src/lib/hooks'
   target = 'svelte'
