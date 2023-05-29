@@ -3,14 +3,14 @@ import type { Prisma, User } from '@prisma/client';
 import { getContext } from 'svelte';
 import { derived } from 'svelte/store';
 import type { MutationOptions, QueryOptions } from '@tanstack/svelte-query';
-import type { RequestHandlerContext } from '@zenstackhq/tanstack-query/runtime';
-import { query, postMutation, putMutation, deleteMutation, SvelteQueryContextKey } from './_helper';
+import { SvelteQueryContextKey, type RequestHandlerContext } from './_helper';
+import { query, postMutation, putMutation, deleteMutation } from './_helper';
 
 export function useCreateUser(
     options?: Omit<MutationOptions<User, unknown, Prisma.UserCreateArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = postMutation<Prisma.UserCreateArgs, User>(
         'User',
         `${endpoint}/user/create`,
@@ -44,7 +44,7 @@ export function useCreateManyUser(
     options?: Omit<MutationOptions<Prisma.BatchPayload, unknown, Prisma.UserCreateManyArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = postMutation<Prisma.UserCreateManyArgs, Prisma.BatchPayload>(
         'User',
         `${endpoint}/user/createMany`,
@@ -70,7 +70,7 @@ export function useFindManyUser<T extends Prisma.UserFindManyArgs>(
     args?: Prisma.SelectSubset<T, Prisma.UserFindManyArgs>,
     options?: QueryOptions<Array<Prisma.UserGetPayload<T>>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Array<Prisma.UserGetPayload<T>>>('User', `${endpoint}/user/findMany`, args, options);
 }
 
@@ -78,7 +78,7 @@ export function useFindUniqueUser<T extends Prisma.UserFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.UserFindUniqueArgs>,
     options?: QueryOptions<Prisma.UserGetPayload<T>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Prisma.UserGetPayload<T>>('User', `${endpoint}/user/findUnique`, args, options);
 }
 
@@ -86,7 +86,7 @@ export function useFindFirstUser<T extends Prisma.UserFindFirstArgs>(
     args?: Prisma.SelectSubset<T, Prisma.UserFindFirstArgs>,
     options?: QueryOptions<Prisma.UserGetPayload<T>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Prisma.UserGetPayload<T>>('User', `${endpoint}/user/findFirst`, args, options);
 }
 
@@ -94,7 +94,7 @@ export function useUpdateUser(
     options?: Omit<MutationOptions<User, unknown, Prisma.UserUpdateArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = putMutation<Prisma.UserUpdateArgs, User>(
         'User',
         `${endpoint}/user/update`,
@@ -128,7 +128,7 @@ export function useUpdateManyUser(
     options?: Omit<MutationOptions<Prisma.BatchPayload, unknown, Prisma.UserUpdateManyArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = putMutation<Prisma.UserUpdateManyArgs, Prisma.BatchPayload>(
         'User',
         `${endpoint}/user/updateMany`,
@@ -154,7 +154,7 @@ export function useUpsertUser(
     options?: Omit<MutationOptions<User, unknown, Prisma.UserUpsertArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = postMutation<Prisma.UserUpsertArgs, User>(
         'User',
         `${endpoint}/user/upsert`,
@@ -188,7 +188,7 @@ export function useDeleteUser(
     options?: Omit<MutationOptions<User, unknown, Prisma.UserDeleteArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = deleteMutation<Prisma.UserDeleteArgs, User>(
         'User',
         `${endpoint}/user/delete`,
@@ -222,7 +222,7 @@ export function useDeleteManyUser(
     options?: Omit<MutationOptions<Prisma.BatchPayload, unknown, Prisma.UserDeleteManyArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = deleteMutation<Prisma.UserDeleteManyArgs, Prisma.BatchPayload>(
         'User',
         `${endpoint}/user/deleteMany`,
@@ -248,7 +248,7 @@ export function useAggregateUser<T extends Prisma.UserAggregateArgs>(
     args: Prisma.SelectSubset<T, Prisma.UserAggregateArgs>,
     options?: QueryOptions<Prisma.GetUserAggregateType<T>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Prisma.GetUserAggregateType<T>>('User', `${endpoint}/user/aggregate`, args, options);
 }
 
@@ -317,7 +317,7 @@ export function useGroupByUser<
             : InputErrors
     >,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<
         {} extends InputErrors
             ? Array<
@@ -343,7 +343,7 @@ export function useCountUser<T extends Prisma.UserCountArgs>(
             : number
     >,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<
         T extends { select: any }
             ? T['select'] extends true

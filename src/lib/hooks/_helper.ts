@@ -1,33 +1,21 @@
-/* eslint-disable */
-
-import {
-    createMutation,
-    createQuery,
-    useQueryClient,
-    type MutateFunction,
-    type MutationOptions,
-    type QueryClient,
-    type QueryOptions,
-} from '@tanstack/svelte-query';
-import Decimal from 'decimal.js';
-import superjson from 'superjson';
+/**
+ * The default query endpoint.
+ */
+export const DEFAULT_QUERY_ENDPOINT = '/api/model';
 
 /**
- * Context type for configuring react hooks.
+ * Prefix for react-query keys.
+ */
+export const QUERY_KEY_PREFIX = 'zenstack:';
+
+/**
+ * Context type for configuring the hooks.
  */
 export type RequestHandlerContext = {
     endpoint: string;
 };
 
-export const SvelteQueryContextKey = 'zenstack-svelte-query-context';
-
-export const QUERY_KEY_PREFIX = 'zenstack:';
-
-export function makeUrl(url: string, args: unknown) {
-    return args ? url + `?q=${encodeURIComponent(marshal(args))}` : url;
-}
-
-export async function fetcher<R>(url: string, options?: RequestInit) {
+async function fetcher<R>(url: string, options?: RequestInit) {
     const res = await fetch(url, options);
     if (!res.ok) {
         const error: Error & { info?: unknown; status?: number } = new Error(
@@ -47,49 +35,30 @@ export async function fetcher<R>(url: string, options?: RequestInit) {
     }
 }
 
-export function registerSerializers() {
-    if (typeof Buffer !== 'undefined') {
-        superjson.registerCustom<Buffer, string>(
-            {
-                isApplicable: (v): v is Buffer => Buffer.isBuffer(v),
-                serialize: (v) => JSON.stringify(v.toJSON().data),
-                deserialize: (v) => Buffer.from(JSON.parse(v)),
-            },
-            'Buffer',
-        );
-    }
+/* eslint-disable */
 
-    if (typeof Decimal !== 'undefined') {
-        superjson.registerCustom<Decimal, string>(
-            {
-                isApplicable: (v): v is Decimal => Decimal.isDecimal(v),
-                serialize: (v) => v.toJSON(),
-                deserialize: (v) => new Decimal(v),
-            },
-            'decimal.js',
-        );
-    }
-}
-
-export function marshal(value: unknown) {
-    return superjson.stringify(value);
-}
-
-export function unmarshal(value: string) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return superjson.parse<any>(value);
-}
-
-// register superjson custom serializers
-registerSerializers();
+import {
+    createMutation,
+    createQuery,
+    useQueryClient,
+    type MutateFunction,
+    type MutationOptions,
+    type QueryClient,
+    type QueryOptions,
+} from '@tanstack/svelte-query';
 
 /**
- * Creates a react-query query.
+ * Key for setting and getting the global query context.
+ */
+export const SvelteQueryContextKey = 'zenstack-svelte-query-context';
+
+/**
+ * Creates a svelte-query query.
  *
  * @param model The name of the model under query.
  * @param url The request URL.
- * @param args The request args object, which will be superjson-stringified and appended as "?q=" parameter
- * @param options The react-query options object
+ * @param args The request args object, URL-encoded and appended as "?q=" parameter
+ * @param options The svelte-query options object
  * @returns useQuery hook
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -103,11 +72,11 @@ export function query<R>(model: string, url: string, args?: unknown, options?: Q
 }
 
 /**
- * Creates a POST mutation with react-query.
+ * Creates a POST mutation with svelte-query.
  *
  * @param model The name of the model under mutation.
  * @param url The request URL.
- * @param options The react-query options.
+ * @param options The svelte-query options.
  * @param invalidateQueries Whether to invalidate queries after mutation.
  * @returns useMutation hooks
  */
@@ -133,11 +102,11 @@ export function postMutation<T, R = any>(
 }
 
 /**
- * Creates a PUT mutation with react-query.
+ * Creates a PUT mutation with svelte-query.
  *
  * @param model The name of the model under mutation.
  * @param url The request URL.
- * @param options The react-query options.
+ * @param options The svelte-query options.
  * @param invalidateQueries Whether to invalidate queries after mutation.
  * @returns useMutation hooks
  */
@@ -163,11 +132,11 @@ export function putMutation<T, R = any>(
 }
 
 /**
- * Creates a DELETE mutation with react-query.
+ * Creates a DELETE mutation with svelte-query.
  *
  * @param model The name of the model under mutation.
  * @param url The request URL.
- * @param options The react-query options.
+ * @param options The svelte-query options.
  * @param invalidateQueries Whether to invalidate queries after mutation.
  * @returns useMutation hooks
  */
@@ -205,4 +174,17 @@ function mergeOptions<T, R = any>(
         };
     }
     return result;
+}
+
+function marshal(value: unknown) {
+    return JSON.stringify(value);
+}
+
+function unmarshal(value: string) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return JSON.parse(value) as any;
+}
+
+function makeUrl(url: string, args: unknown) {
+    return args ? url + `?q=${encodeURIComponent(JSON.stringify(args))}` : url;
 }

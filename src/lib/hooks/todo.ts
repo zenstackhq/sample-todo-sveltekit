@@ -3,14 +3,14 @@ import type { Prisma, Todo } from '@prisma/client';
 import { getContext } from 'svelte';
 import { derived } from 'svelte/store';
 import type { MutationOptions, QueryOptions } from '@tanstack/svelte-query';
-import type { RequestHandlerContext } from '@zenstackhq/tanstack-query/runtime';
-import { query, postMutation, putMutation, deleteMutation, SvelteQueryContextKey } from './_helper';
+import { SvelteQueryContextKey, type RequestHandlerContext } from './_helper';
+import { query, postMutation, putMutation, deleteMutation } from './_helper';
 
 export function useCreateTodo(
     options?: Omit<MutationOptions<Todo, unknown, Prisma.TodoCreateArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = postMutation<Prisma.TodoCreateArgs, Todo>(
         'Todo',
         `${endpoint}/todo/create`,
@@ -44,7 +44,7 @@ export function useCreateManyTodo(
     options?: Omit<MutationOptions<Prisma.BatchPayload, unknown, Prisma.TodoCreateManyArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = postMutation<Prisma.TodoCreateManyArgs, Prisma.BatchPayload>(
         'Todo',
         `${endpoint}/todo/createMany`,
@@ -70,7 +70,7 @@ export function useFindManyTodo<T extends Prisma.TodoFindManyArgs>(
     args?: Prisma.SelectSubset<T, Prisma.TodoFindManyArgs>,
     options?: QueryOptions<Array<Prisma.TodoGetPayload<T>>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Array<Prisma.TodoGetPayload<T>>>('Todo', `${endpoint}/todo/findMany`, args, options);
 }
 
@@ -78,7 +78,7 @@ export function useFindUniqueTodo<T extends Prisma.TodoFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.TodoFindUniqueArgs>,
     options?: QueryOptions<Prisma.TodoGetPayload<T>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Prisma.TodoGetPayload<T>>('Todo', `${endpoint}/todo/findUnique`, args, options);
 }
 
@@ -86,7 +86,7 @@ export function useFindFirstTodo<T extends Prisma.TodoFindFirstArgs>(
     args?: Prisma.SelectSubset<T, Prisma.TodoFindFirstArgs>,
     options?: QueryOptions<Prisma.TodoGetPayload<T>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Prisma.TodoGetPayload<T>>('Todo', `${endpoint}/todo/findFirst`, args, options);
 }
 
@@ -94,7 +94,7 @@ export function useUpdateTodo(
     options?: Omit<MutationOptions<Todo, unknown, Prisma.TodoUpdateArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = putMutation<Prisma.TodoUpdateArgs, Todo>(
         'Todo',
         `${endpoint}/todo/update`,
@@ -128,7 +128,7 @@ export function useUpdateManyTodo(
     options?: Omit<MutationOptions<Prisma.BatchPayload, unknown, Prisma.TodoUpdateManyArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = putMutation<Prisma.TodoUpdateManyArgs, Prisma.BatchPayload>(
         'Todo',
         `${endpoint}/todo/updateMany`,
@@ -154,7 +154,7 @@ export function useUpsertTodo(
     options?: Omit<MutationOptions<Todo, unknown, Prisma.TodoUpsertArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = postMutation<Prisma.TodoUpsertArgs, Todo>(
         'Todo',
         `${endpoint}/todo/upsert`,
@@ -188,7 +188,7 @@ export function useDeleteTodo(
     options?: Omit<MutationOptions<Todo, unknown, Prisma.TodoDeleteArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = deleteMutation<Prisma.TodoDeleteArgs, Todo>(
         'Todo',
         `${endpoint}/todo/delete`,
@@ -222,7 +222,7 @@ export function useDeleteManyTodo(
     options?: Omit<MutationOptions<Prisma.BatchPayload, unknown, Prisma.TodoDeleteManyArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = deleteMutation<Prisma.TodoDeleteManyArgs, Prisma.BatchPayload>(
         'Todo',
         `${endpoint}/todo/deleteMany`,
@@ -248,7 +248,7 @@ export function useAggregateTodo<T extends Prisma.TodoAggregateArgs>(
     args: Prisma.SelectSubset<T, Prisma.TodoAggregateArgs>,
     options?: QueryOptions<Prisma.GetTodoAggregateType<T>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Prisma.GetTodoAggregateType<T>>('Todo', `${endpoint}/todo/aggregate`, args, options);
 }
 
@@ -317,7 +317,7 @@ export function useGroupByTodo<
             : InputErrors
     >,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<
         {} extends InputErrors
             ? Array<
@@ -343,7 +343,7 @@ export function useCountTodo<T extends Prisma.TodoCountArgs>(
             : number
     >,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<
         T extends { select: any }
             ? T['select'] extends true

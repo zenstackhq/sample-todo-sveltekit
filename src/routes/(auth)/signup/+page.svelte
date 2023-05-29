@@ -1,44 +1,8 @@
 <script lang="ts">
-    import { goto } from '$app/navigation';
-    import { useCreateUser } from '$lib/hooks';
+    import { enhance } from '$app/forms';
+    import type { ActionData } from './$types';
 
-    let email = '';
-    let password = '';
-    const createUser = useCreateUser();
-
-    function onCreateUser() {
-        $createUser.mutate({
-            data: { email, password },
-        });
-    }
-
-    $: if ($createUser.isSuccess) {
-        // login after a successful signup
-        fetch('/api/auth/signin', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        }).then((res) => {
-            if (res.ok) {
-                goto('/');
-            }
-        });
-    }
-
-    function formatError(err: any) {
-        if (!err) {
-            return '';
-        }
-        if (err?.info?.code === 'P2002') {
-            return 'Email already registered!';
-        } else {
-            return err?.info?.message || err?.message;
-        }
-    }
-
-    $: errMsg = formatError($createUser.error);
+    export let form: ActionData;
 </script>
 
 <div>
@@ -58,13 +22,12 @@
                 <h2 class="text-2xl font-bold text-gray-900 lg:text-3xl">
                     Create a Free Account
                 </h2>
-                <form
-                    class="mt-8"
-                    action="#"
-                    method="post"
-                    on:submit|preventDefault={onCreateUser}
-                >
-                    <p class="text-red-600 my-2">{errMsg}</p>
+                <form class="mt-8" action="#" method="post" use:enhance>
+                    {#if form?.dup}
+                        <p class="text-red-600 my-2">
+                            Email aready registered!
+                        </p>
+                    {/if}
                     <div class="mb-6">
                         <label
                             for="email"
@@ -78,7 +41,7 @@
                             name="email"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                             placeholder="Email address"
-                            bind:value={email}
+                            value={form?.email ?? ''}
                             required
                         />
                     </div>
@@ -95,7 +58,7 @@
                             name="password"
                             placeholder="••••••••"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-                            bind:value={password}
+                            value={form?.password ?? ''}
                             required
                         />
                     </div>
@@ -116,6 +79,7 @@
                                 class="font-medium text-gray-900"
                             >
                                 I accept the{' '}
+                                <!-- svelte-ignore a11y-invalid-attribute -->
                                 <a
                                     href="#"
                                     class="text-primary-700 hover:underline"
@@ -125,12 +89,7 @@
                             </label>
                         </div>
                     </div>
-                    <button
-                        class="btn btn-primary mt-4"
-                        class:loading={$createUser.isLoading}
-                        class:btn-disabled={$createUser.isLoading}
-                        type="submit"
-                    >
+                    <button class="btn btn-primary mt-4" type="submit">
                         Create account
                     </button>
                     <div class="mt-4 text-sm font-medium text-gray-500">

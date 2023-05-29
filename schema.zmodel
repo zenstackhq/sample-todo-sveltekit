@@ -18,7 +18,7 @@ enum SpaceUserRole {
 plugin tanstack {
   provider = '@zenstackhq/tanstack-query'
   output = 'src/lib/hooks'
-  framework = 'svelte'
+  target = 'svelte'
 }
 
 /*

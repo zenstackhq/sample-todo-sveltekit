@@ -32,7 +32,7 @@ const auth = (async ({ event, resolve }) => {
     return resolve(event);
 }) satisfies Handle;
 
-const crud = zenstack.ZenStackSvelteKitHandler({
+const crud = zenstack.SvelteKitHandler({
     prefix: '/api/model',
     getPrisma: (event) => event.locals.db,
 });

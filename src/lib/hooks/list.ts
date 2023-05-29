@@ -3,14 +3,14 @@ import type { Prisma, List } from '@prisma/client';
 import { getContext } from 'svelte';
 import { derived } from 'svelte/store';
 import type { MutationOptions, QueryOptions } from '@tanstack/svelte-query';
-import type { RequestHandlerContext } from '@zenstackhq/tanstack-query/runtime';
-import { query, postMutation, putMutation, deleteMutation, SvelteQueryContextKey } from './_helper';
+import { SvelteQueryContextKey, type RequestHandlerContext } from './_helper';
+import { query, postMutation, putMutation, deleteMutation } from './_helper';
 
 export function useCreateList(
     options?: Omit<MutationOptions<List, unknown, Prisma.ListCreateArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = postMutation<Prisma.ListCreateArgs, List>(
         'List',
         `${endpoint}/list/create`,
@@ -44,7 +44,7 @@ export function useCreateManyList(
     options?: Omit<MutationOptions<Prisma.BatchPayload, unknown, Prisma.ListCreateManyArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = postMutation<Prisma.ListCreateManyArgs, Prisma.BatchPayload>(
         'List',
         `${endpoint}/list/createMany`,
@@ -70,7 +70,7 @@ export function useFindManyList<T extends Prisma.ListFindManyArgs>(
     args?: Prisma.SelectSubset<T, Prisma.ListFindManyArgs>,
     options?: QueryOptions<Array<Prisma.ListGetPayload<T>>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Array<Prisma.ListGetPayload<T>>>('List', `${endpoint}/list/findMany`, args, options);
 }
 
@@ -78,7 +78,7 @@ export function useFindUniqueList<T extends Prisma.ListFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.ListFindUniqueArgs>,
     options?: QueryOptions<Prisma.ListGetPayload<T>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Prisma.ListGetPayload<T>>('List', `${endpoint}/list/findUnique`, args, options);
 }
 
@@ -86,7 +86,7 @@ export function useFindFirstList<T extends Prisma.ListFindFirstArgs>(
     args?: Prisma.SelectSubset<T, Prisma.ListFindFirstArgs>,
     options?: QueryOptions<Prisma.ListGetPayload<T>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Prisma.ListGetPayload<T>>('List', `${endpoint}/list/findFirst`, args, options);
 }
 
@@ -94,7 +94,7 @@ export function useUpdateList(
     options?: Omit<MutationOptions<List, unknown, Prisma.ListUpdateArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = putMutation<Prisma.ListUpdateArgs, List>(
         'List',
         `${endpoint}/list/update`,
@@ -128,7 +128,7 @@ export function useUpdateManyList(
     options?: Omit<MutationOptions<Prisma.BatchPayload, unknown, Prisma.ListUpdateManyArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = putMutation<Prisma.ListUpdateManyArgs, Prisma.BatchPayload>(
         'List',
         `${endpoint}/list/updateMany`,
@@ -154,7 +154,7 @@ export function useUpsertList(
     options?: Omit<MutationOptions<List, unknown, Prisma.ListUpsertArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = postMutation<Prisma.ListUpsertArgs, List>(
         'List',
         `${endpoint}/list/upsert`,
@@ -188,7 +188,7 @@ export function useDeleteList(
     options?: Omit<MutationOptions<List, unknown, Prisma.ListDeleteArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = deleteMutation<Prisma.ListDeleteArgs, List>(
         'List',
         `${endpoint}/list/delete`,
@@ -222,7 +222,7 @@ export function useDeleteManyList(
     options?: Omit<MutationOptions<Prisma.BatchPayload, unknown, Prisma.ListDeleteManyArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = deleteMutation<Prisma.ListDeleteManyArgs, Prisma.BatchPayload>(
         'List',
         `${endpoint}/list/deleteMany`,
@@ -248,7 +248,7 @@ export function useAggregateList<T extends Prisma.ListAggregateArgs>(
     args: Prisma.SelectSubset<T, Prisma.ListAggregateArgs>,
     options?: QueryOptions<Prisma.GetListAggregateType<T>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Prisma.GetListAggregateType<T>>('List', `${endpoint}/list/aggregate`, args, options);
 }
 
@@ -317,7 +317,7 @@ export function useGroupByList<
             : InputErrors
     >,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<
         {} extends InputErrors
             ? Array<
@@ -343,7 +343,7 @@ export function useCountList<T extends Prisma.ListCountArgs>(
             : number
     >,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<
         T extends { select: any }
             ? T['select'] extends true

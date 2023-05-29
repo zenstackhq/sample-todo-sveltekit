@@ -3,14 +3,14 @@ import type { Prisma, Space } from '@prisma/client';
 import { getContext } from 'svelte';
 import { derived } from 'svelte/store';
 import type { MutationOptions, QueryOptions } from '@tanstack/svelte-query';
-import type { RequestHandlerContext } from '@zenstackhq/tanstack-query/runtime';
-import { query, postMutation, putMutation, deleteMutation, SvelteQueryContextKey } from './_helper';
+import { SvelteQueryContextKey, type RequestHandlerContext } from './_helper';
+import { query, postMutation, putMutation, deleteMutation } from './_helper';
 
 export function useCreateSpace(
     options?: Omit<MutationOptions<Space, unknown, Prisma.SpaceCreateArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = postMutation<Prisma.SpaceCreateArgs, Space>(
         'Space',
         `${endpoint}/space/create`,
@@ -44,7 +44,7 @@ export function useCreateManySpace(
     options?: Omit<MutationOptions<Prisma.BatchPayload, unknown, Prisma.SpaceCreateManyArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = postMutation<Prisma.SpaceCreateManyArgs, Prisma.BatchPayload>(
         'Space',
         `${endpoint}/space/createMany`,
@@ -70,7 +70,7 @@ export function useFindManySpace<T extends Prisma.SpaceFindManyArgs>(
     args?: Prisma.SelectSubset<T, Prisma.SpaceFindManyArgs>,
     options?: QueryOptions<Array<Prisma.SpaceGetPayload<T>>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Array<Prisma.SpaceGetPayload<T>>>('Space', `${endpoint}/space/findMany`, args, options);
 }
 
@@ -78,7 +78,7 @@ export function useFindUniqueSpace<T extends Prisma.SpaceFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.SpaceFindUniqueArgs>,
     options?: QueryOptions<Prisma.SpaceGetPayload<T>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Prisma.SpaceGetPayload<T>>('Space', `${endpoint}/space/findUnique`, args, options);
 }
 
@@ -86,7 +86,7 @@ export function useFindFirstSpace<T extends Prisma.SpaceFindFirstArgs>(
     args?: Prisma.SelectSubset<T, Prisma.SpaceFindFirstArgs>,
     options?: QueryOptions<Prisma.SpaceGetPayload<T>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Prisma.SpaceGetPayload<T>>('Space', `${endpoint}/space/findFirst`, args, options);
 }
 
@@ -94,7 +94,7 @@ export function useUpdateSpace(
     options?: Omit<MutationOptions<Space, unknown, Prisma.SpaceUpdateArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = putMutation<Prisma.SpaceUpdateArgs, Space>(
         'Space',
         `${endpoint}/space/update`,
@@ -128,7 +128,7 @@ export function useUpdateManySpace(
     options?: Omit<MutationOptions<Prisma.BatchPayload, unknown, Prisma.SpaceUpdateManyArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = putMutation<Prisma.SpaceUpdateManyArgs, Prisma.BatchPayload>(
         'Space',
         `${endpoint}/space/updateMany`,
@@ -154,7 +154,7 @@ export function useUpsertSpace(
     options?: Omit<MutationOptions<Space, unknown, Prisma.SpaceUpsertArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = postMutation<Prisma.SpaceUpsertArgs, Space>(
         'Space',
         `${endpoint}/space/upsert`,
@@ -188,7 +188,7 @@ export function useDeleteSpace(
     options?: Omit<MutationOptions<Space, unknown, Prisma.SpaceDeleteArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = deleteMutation<Prisma.SpaceDeleteArgs, Space>(
         'Space',
         `${endpoint}/space/delete`,
@@ -222,7 +222,7 @@ export function useDeleteManySpace(
     options?: Omit<MutationOptions<Prisma.BatchPayload, unknown, Prisma.SpaceDeleteManyArgs>, 'mutationFn'>,
     invalidateQueries: boolean = true,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     const _mutation = deleteMutation<Prisma.SpaceDeleteManyArgs, Prisma.BatchPayload>(
         'Space',
         `${endpoint}/space/deleteMany`,
@@ -248,7 +248,7 @@ export function useAggregateSpace<T extends Prisma.SpaceAggregateArgs>(
     args: Prisma.SelectSubset<T, Prisma.SpaceAggregateArgs>,
     options?: QueryOptions<Prisma.GetSpaceAggregateType<T>>,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<Prisma.GetSpaceAggregateType<T>>('Space', `${endpoint}/space/aggregate`, args, options);
 }
 
@@ -317,7 +317,7 @@ export function useGroupBySpace<
             : InputErrors
     >,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<
         {} extends InputErrors
             ? Array<
@@ -343,7 +343,7 @@ export function useCountSpace<T extends Prisma.SpaceCountArgs>(
             : number
     >,
 ) {
-    const endpoint = getContext<RequestHandlerContext>(SvelteQueryContextKey).endpoint;
+    const { endpoint } = getContext<RequestHandlerContext>(SvelteQueryContextKey);
     return query<
         T extends { select: any }
             ? T['select'] extends true
