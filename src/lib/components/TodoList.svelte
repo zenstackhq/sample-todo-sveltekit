@@ -32,9 +32,7 @@
     <a href={`${$page.url.pathname}/${value.id}`}>
         <figure>
             <img
-                src={`https://picsum.photos/300/200?r=${customAlphabet(
-                    '0123456789'
-                )(4)}`}
+                src={`https://picsum.photos/seed/${value.id}/300/200`}
                 width="320"
                 height="320"
                 alt="Cover"
