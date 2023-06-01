@@ -13,8 +13,10 @@ In this fictitious app, users can be invited to workspaces where they can collab
 
 ## Running the sample
 
-1. Setup a new PostgreSQL database
+1. Setup a new database
 
+    It use PostgreSQL by default, if you want to use MySQL, simply change the db datasource provider to `mysql` in `schema.zmodel` file.
+    
     You can launch a PostgreSQL instance locally, or create one from a hoster like [Supabase](https://supabase.com). Create a new database for this app, and set the connection string in .env file.
 
 1. Install dependencies
