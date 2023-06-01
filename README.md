@@ -43,4 +43,9 @@ In this fictitious app, users can be invited to workspaces where they can collab
     npm run dev
     ```
 
-For more information on using ZenStack, visit [https://zenstack.dev](https://zenstack.dev).
+
+
+## Feedback and Issues
+If you encounter any issue or have any feedback, please create a new issue in our main repository so we could respond to it promptly:
+
+[https://github.com/zenstackhq/zenstack](https://github.com/zenstackhq/zenstack)
