@@ -12,7 +12,7 @@
 <div class="px-8 py-2">
     <BreadCrumb space={data.space} list={data.list} />
 </div>
-<div class="container w-full flex flex-col items-center pt-12">
+<div class="container w-full flex flex-col items-center pt-12 mx-auto">
     <h1 class="text-2xl font-semibold mb-4">
         {data.list?.title}
     </h1>
