@@ -15,8 +15,8 @@
         "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
         "package-clean": "npm rm zenstack @zenstackhq/runtime @zenstackhq/server @zenstackhq/tanstack-query",
-        "up": "npm install -D --save-exact zenstack@latest && npm install --save-exact @zenstackhq/runtime@latest @zenstackhq/server@latest @zenstackhq/tanstack-query@latest",
-        "up-preview": "npm install --registry http://localhost:4873 -D --save-exact zenstack@latest && npm install --registry http://localhost:4873 --save-exact @zenstackhq/runtime@latest @zenstackhq/server@latest @zenstackhq/tanstack-query@latest"
+        "up": "npm run package-clean && npm install -D --save-exact zenstack@latest && npm install --save-exact @zenstackhq/runtime@latest @zenstackhq/server@latest @zenstackhq/tanstack-query@latest",
+        "up-preview": "npm run package-clean && npm install --registry http://localhost:4873 -D --save-exact zenstack@latest && npm install --registry http://localhost:4873 --save-exact @zenstackhq/runtime@latest @zenstackhq/server@latest @zenstackhq/tanstack-query@latest"
     },
     "devDependencies": {
         "@sveltejs/adapter-auto": "^2.0.0",
@@ -27,7 +27,6 @@
         "@types/jsonwebtoken": "^9.0.1",
         "@typescript-eslint/eslint-plugin": "^5.45.0",
         "@typescript-eslint/parser": "^5.45.0",
-        "@zenstackhq/tanstack-query": "1.0.0-beta.10",
         "autoprefixer": "^10.4.14",
         "eslint": "^8.28.0",
         "eslint-config-prettier": "^8.5.0",
@@ -53,6 +52,7 @@
         "@tanstack/svelte-query": "^4.29.7",
         "@zenstackhq/runtime": "1.0.0-beta.10",
         "@zenstackhq/server": "1.0.0-beta.10",
+        "@zenstackhq/tanstack-query": "1.0.0-beta.10",
         "bcryptjs": "^2.4.3",
         "daisyui": "^2.51.5",
         "jsonwebtoken": "^9.0.0",
