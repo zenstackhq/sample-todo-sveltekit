@@ -42,7 +42,7 @@
         "tslib": "^2.4.1",
         "typescript": "^4.9.3",
         "vite": "^4.4.4",
-        "zenstack": "1.0.0-beta.10"
+        "zenstack": "1.0.0-beta.11"
     },
     "type": "module",
     "dependencies": {
@@ -50,9 +50,9 @@
         "@steeze-ui/heroicons": "^2.2.2",
         "@steeze-ui/svelte-icon": "^1.3.2",
         "@tanstack/svelte-query": "^4.29.25",
-        "@zenstackhq/runtime": "1.0.0-beta.10",
-        "@zenstackhq/server": "1.0.0-beta.10",
-        "@zenstackhq/tanstack-query": "^1.0.0-beta.10",
+        "@zenstackhq/runtime": "1.0.0-beta.11",
+        "@zenstackhq/server": "1.0.0-beta.11",
+        "@zenstackhq/tanstack-query": "1.0.0-beta.11",
         "bcryptjs": "^2.4.3",
         "daisyui": "^2.51.5",
         "jsonwebtoken": "^9.0.0",
