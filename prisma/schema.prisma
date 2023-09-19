@@ -6,6 +6,7 @@
 datasource db {
     provider="postgresql"
     url=env("DATABASE_URL")
+    directUrl=env("DATABASE_DIRECT_URL")
 }
 
 generator client {
@@ -27,7 +28,7 @@ model Space {
     updatedAt DateTime @updatedAt()
     /// @length(4, 50)
     name String
-    /// @regex('^[0-9a-zA-Z]{4,16}$')
+    /// @regex('^[0-9a-zA-Z-_]{4,16}$')
     slug String @unique()
     members SpaceUser[]
     lists List[]
