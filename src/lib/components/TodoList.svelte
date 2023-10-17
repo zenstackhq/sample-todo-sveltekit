@@ -35,6 +35,7 @@
                 src={`https://picsum.photos/seed/${value.id}/300/200`}
                 width="320"
                 height="320"
+                class="rounded-t-2xl"
                 alt="Cover"
             />
         </figure>

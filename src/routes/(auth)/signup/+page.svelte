@@ -25,7 +25,7 @@
                 <form class="mt-8" action="#" method="post" use:enhance>
                     {#if form?.dup}
                         <p class="text-red-600 my-2">
-                            Email aready registered!
+                            Email already registered!
                         </p>
                     {/if}
                     <div class="mb-6">

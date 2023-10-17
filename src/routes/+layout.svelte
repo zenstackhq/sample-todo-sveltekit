@@ -1,8 +1,7 @@
 <script lang="ts">
     import { browser } from '$app/environment';
-    import { SvelteQueryContextKey } from '$lib/hooks';
+    import { setHooksContext } from '$lib/hooks';
     import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query';
-    import { setContext } from 'svelte';
     import '../app.css';
 
     const queryClient = new QueryClient({
@@ -13,7 +12,7 @@
             },
         },
     });
-    setContext(SvelteQueryContextKey, { endpoint: '/api/model' });
+    setHooksContext({ endpoint: '/api/model' });
 </script>
 
 <div class="h-screen flex flex-col">

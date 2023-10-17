@@ -13,7 +13,7 @@
     <form method="post" use:enhance>
         <h1 class="text-3xl mb-8">Create a space</h1>
         {#if form?.dup}
-            <p class="text-red-600 my-2">Slug aready in use!</p>
+            <p class="text-red-600 my-2">Slug already in use!</p>
         {/if}
         <div class="flex-col space-y-4">
             <div>

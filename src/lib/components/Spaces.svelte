@@ -6,7 +6,7 @@
 <ul class="flex flex-wrap gap-4">
     {#each spaces as space (space.id)}
         <li
-            class="card w-80 h-32 shadow-xl text-gray-600 cursor-pointer hover:bg-gray-50 border"
+            class="card w-80 h-32 flex justify-center shadow-xl text-gray-600 cursor-pointer hover:bg-gray-50 border"
         >
             <a href={`/space/${space.slug}`}>
                 <div class="card-body" title={space.name}>
