@@ -6,7 +6,7 @@
         "generate": "zenstack generate",
         "dev": "vite dev",
         "build": "npm run generate && vite build",
-        "vercel-build": "npm run generate && npm run build && npm run db:deploy",
+        "vercel-build": "npm run build && npm run db:deploy",
         "preview": "vite preview",
         "db:push": "prisma db push",
         "db:migrate": "prisma migrate dev",
