@@ -30,7 +30,7 @@ export function useCreateUser(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.UserCreateArgs>(
+        mutateAsync: async <T extends Prisma.UserCreateArgs>(
             args: Prisma.SelectSubset<T, Prisma.UserCreateArgs>,
             options?: Omit<
                 MutationOptions<
@@ -40,7 +40,7 @@ export function useCreateUser(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as
                 | CheckSelect<T, User, Prisma.UserGetPayload<T>>
                 | undefined;
@@ -68,13 +68,13 @@ export function useCreateManyUser(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.UserCreateManyArgs>(
+        mutateAsync: async <T extends Prisma.UserCreateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.UserCreateManyArgs>,
             options?: Omit<
                 MutationOptions<Prisma.BatchPayload, unknown, Prisma.SelectSubset<T, Prisma.UserCreateManyArgs>>,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     }));
@@ -135,7 +135,7 @@ export function useUpdateUser(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.UserUpdateArgs>(
+        mutateAsync: async <T extends Prisma.UserUpdateArgs>(
             args: Prisma.SelectSubset<T, Prisma.UserUpdateArgs>,
             options?: Omit<
                 MutationOptions<
@@ -145,7 +145,7 @@ export function useUpdateUser(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as
                 | CheckSelect<T, User, Prisma.UserGetPayload<T>>
                 | undefined;
@@ -173,13 +173,13 @@ export function useUpdateManyUser(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.UserUpdateManyArgs>(
+        mutateAsync: async <T extends Prisma.UserUpdateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.UserUpdateManyArgs>,
             options?: Omit<
                 MutationOptions<Prisma.BatchPayload, unknown, Prisma.SelectSubset<T, Prisma.UserUpdateManyArgs>>,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     }));
@@ -205,7 +205,7 @@ export function useUpsertUser(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.UserUpsertArgs>(
+        mutateAsync: async <T extends Prisma.UserUpsertArgs>(
             args: Prisma.SelectSubset<T, Prisma.UserUpsertArgs>,
             options?: Omit<
                 MutationOptions<
@@ -215,7 +215,7 @@ export function useUpsertUser(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as
                 | CheckSelect<T, User, Prisma.UserGetPayload<T>>
                 | undefined;
@@ -243,7 +243,7 @@ export function useDeleteUser(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.UserDeleteArgs>(
+        mutateAsync: async <T extends Prisma.UserDeleteArgs>(
             args: Prisma.SelectSubset<T, Prisma.UserDeleteArgs>,
             options?: Omit<
                 MutationOptions<
@@ -253,7 +253,7 @@ export function useDeleteUser(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as
                 | CheckSelect<T, User, Prisma.UserGetPayload<T>>
                 | undefined;
@@ -281,13 +281,13 @@ export function useDeleteManyUser(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.UserDeleteManyArgs>(
+        mutateAsync: async <T extends Prisma.UserDeleteManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.UserDeleteManyArgs>,
             options?: Omit<
                 MutationOptions<Prisma.BatchPayload, unknown, Prisma.SelectSubset<T, Prisma.UserDeleteManyArgs>>,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     }));

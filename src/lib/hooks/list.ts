@@ -30,7 +30,7 @@ export function useCreateList(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.ListCreateArgs>(
+        mutateAsync: async <T extends Prisma.ListCreateArgs>(
             args: Prisma.SelectSubset<T, Prisma.ListCreateArgs>,
             options?: Omit<
                 MutationOptions<
@@ -40,7 +40,7 @@ export function useCreateList(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as
                 | CheckSelect<T, List, Prisma.ListGetPayload<T>>
                 | undefined;
@@ -68,13 +68,13 @@ export function useCreateManyList(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.ListCreateManyArgs>(
+        mutateAsync: async <T extends Prisma.ListCreateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.ListCreateManyArgs>,
             options?: Omit<
                 MutationOptions<Prisma.BatchPayload, unknown, Prisma.SelectSubset<T, Prisma.ListCreateManyArgs>>,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     }));
@@ -135,7 +135,7 @@ export function useUpdateList(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.ListUpdateArgs>(
+        mutateAsync: async <T extends Prisma.ListUpdateArgs>(
             args: Prisma.SelectSubset<T, Prisma.ListUpdateArgs>,
             options?: Omit<
                 MutationOptions<
@@ -145,7 +145,7 @@ export function useUpdateList(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as
                 | CheckSelect<T, List, Prisma.ListGetPayload<T>>
                 | undefined;
@@ -173,13 +173,13 @@ export function useUpdateManyList(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.ListUpdateManyArgs>(
+        mutateAsync: async <T extends Prisma.ListUpdateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.ListUpdateManyArgs>,
             options?: Omit<
                 MutationOptions<Prisma.BatchPayload, unknown, Prisma.SelectSubset<T, Prisma.ListUpdateManyArgs>>,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     }));
@@ -205,7 +205,7 @@ export function useUpsertList(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.ListUpsertArgs>(
+        mutateAsync: async <T extends Prisma.ListUpsertArgs>(
             args: Prisma.SelectSubset<T, Prisma.ListUpsertArgs>,
             options?: Omit<
                 MutationOptions<
@@ -215,7 +215,7 @@ export function useUpsertList(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as
                 | CheckSelect<T, List, Prisma.ListGetPayload<T>>
                 | undefined;
@@ -243,7 +243,7 @@ export function useDeleteList(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.ListDeleteArgs>(
+        mutateAsync: async <T extends Prisma.ListDeleteArgs>(
             args: Prisma.SelectSubset<T, Prisma.ListDeleteArgs>,
             options?: Omit<
                 MutationOptions<
@@ -253,7 +253,7 @@ export function useDeleteList(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as
                 | CheckSelect<T, List, Prisma.ListGetPayload<T>>
                 | undefined;
@@ -281,13 +281,13 @@ export function useDeleteManyList(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.ListDeleteManyArgs>(
+        mutateAsync: async <T extends Prisma.ListDeleteManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.ListDeleteManyArgs>,
             options?: Omit<
                 MutationOptions<Prisma.BatchPayload, unknown, Prisma.SelectSubset<T, Prisma.ListDeleteManyArgs>>,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     }));

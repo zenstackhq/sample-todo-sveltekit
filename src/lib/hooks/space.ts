@@ -30,7 +30,7 @@ export function useCreateSpace(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.SpaceCreateArgs>(
+        mutateAsync: async <T extends Prisma.SpaceCreateArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceCreateArgs>,
             options?: Omit<
                 MutationOptions<
@@ -40,7 +40,7 @@ export function useCreateSpace(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as
                 | CheckSelect<T, Space, Prisma.SpaceGetPayload<T>>
                 | undefined;
@@ -68,13 +68,13 @@ export function useCreateManySpace(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.SpaceCreateManyArgs>(
+        mutateAsync: async <T extends Prisma.SpaceCreateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceCreateManyArgs>,
             options?: Omit<
                 MutationOptions<Prisma.BatchPayload, unknown, Prisma.SelectSubset<T, Prisma.SpaceCreateManyArgs>>,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     }));
@@ -135,7 +135,7 @@ export function useUpdateSpace(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.SpaceUpdateArgs>(
+        mutateAsync: async <T extends Prisma.SpaceUpdateArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUpdateArgs>,
             options?: Omit<
                 MutationOptions<
@@ -145,7 +145,7 @@ export function useUpdateSpace(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as
                 | CheckSelect<T, Space, Prisma.SpaceGetPayload<T>>
                 | undefined;
@@ -173,13 +173,13 @@ export function useUpdateManySpace(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.SpaceUpdateManyArgs>(
+        mutateAsync: async <T extends Prisma.SpaceUpdateManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUpdateManyArgs>,
             options?: Omit<
                 MutationOptions<Prisma.BatchPayload, unknown, Prisma.SelectSubset<T, Prisma.SpaceUpdateManyArgs>>,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     }));
@@ -205,7 +205,7 @@ export function useUpsertSpace(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.SpaceUpsertArgs>(
+        mutateAsync: async <T extends Prisma.SpaceUpsertArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceUpsertArgs>,
             options?: Omit<
                 MutationOptions<
@@ -215,7 +215,7 @@ export function useUpsertSpace(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as
                 | CheckSelect<T, Space, Prisma.SpaceGetPayload<T>>
                 | undefined;
@@ -243,7 +243,7 @@ export function useDeleteSpace(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.SpaceDeleteArgs>(
+        mutateAsync: async <T extends Prisma.SpaceDeleteArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceDeleteArgs>,
             options?: Omit<
                 MutationOptions<
@@ -253,7 +253,7 @@ export function useDeleteSpace(
                 >,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as
                 | CheckSelect<T, Space, Prisma.SpaceGetPayload<T>>
                 | undefined;
@@ -281,13 +281,13 @@ export function useDeleteManySpace(
     );
     const mutation = derived(_mutation, (value) => ({
         ...value,
-        async mutateAsync<T extends Prisma.SpaceDeleteManyArgs>(
+        mutateAsync: async <T extends Prisma.SpaceDeleteManyArgs>(
             args: Prisma.SelectSubset<T, Prisma.SpaceDeleteManyArgs>,
             options?: Omit<
                 MutationOptions<Prisma.BatchPayload, unknown, Prisma.SelectSubset<T, Prisma.SpaceDeleteManyArgs>>,
                 'mutationFn'
             >,
-        ) {
+        ) => {
             return (await value.mutateAsync(args, options as any)) as Prisma.BatchPayload;
         },
     }));
