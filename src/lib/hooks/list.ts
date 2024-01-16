@@ -1,7 +1,7 @@
 /* eslint-disable */
 import type { Prisma, List } from '@prisma/client';
 import { derived } from 'svelte/store';
-import type { MutationOptions, QueryOptions, CreateInfiniteQueryOptions } from '@tanstack/svelte-query';
+import type { MutationOptions, CreateQueryOptions, CreateInfiniteQueryOptions } from '@tanstack/svelte-query';
 import {
     SvelteQueryContextKey,
     type RequestHandlerContext,
@@ -83,7 +83,7 @@ export function useCreateManyList(
 
 export function useFindManyList<T extends Prisma.ListFindManyArgs>(
     args?: Prisma.SelectSubset<T, Prisma.ListFindManyArgs>,
-    options?: Omit<QueryOptions<Array<Prisma.ListGetPayload<T> & { $optimistic?: boolean }>>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Array<Prisma.ListGetPayload<T> & { $optimistic?: boolean }>>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -100,7 +100,7 @@ export function useInfiniteFindManyList<T extends Prisma.ListFindManyArgs>(
 
 export function useFindUniqueList<T extends Prisma.ListFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.ListFindUniqueArgs>,
-    options?: Omit<QueryOptions<Prisma.ListGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Prisma.ListGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -109,7 +109,7 @@ export function useFindUniqueList<T extends Prisma.ListFindUniqueArgs>(
 
 export function useFindFirstList<T extends Prisma.ListFindFirstArgs>(
     args?: Prisma.SelectSubset<T, Prisma.ListFindFirstArgs>,
-    options?: Omit<QueryOptions<Prisma.ListGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Prisma.ListGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -296,7 +296,7 @@ export function useDeleteManyList(
 
 export function useAggregateList<T extends Prisma.ListAggregateArgs>(
     args: Prisma.SelectSubset<T, Prisma.ListAggregateArgs>,
-    options?: Omit<QueryOptions<Prisma.GetListAggregateType<T>>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Prisma.GetListAggregateType<T>>, 'queryKey'>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery('List', `${endpoint}/list/aggregate`, args, options, fetch);
@@ -354,7 +354,7 @@ export function useGroupByList<
 >(
     args: Prisma.SelectSubset<T, Prisma.SubsetIntersection<T, Prisma.ListGroupByArgs, OrderByArg> & InputErrors>,
     options?: Omit<
-        QueryOptions<
+        CreateQueryOptions<
             {} extends InputErrors
                 ? Array<
                       PickEnumerable<Prisma.ListGroupByOutputType, T['by']> & {
@@ -377,7 +377,7 @@ export function useGroupByList<
 export function useCountList<T extends Prisma.ListCountArgs>(
     args?: Prisma.SelectSubset<T, Prisma.ListCountArgs>,
     options?: Omit<
-        QueryOptions<
+        CreateQueryOptions<
             T extends { select: any }
                 ? T['select'] extends true
                     ? number

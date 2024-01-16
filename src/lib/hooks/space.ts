@@ -1,7 +1,7 @@
 /* eslint-disable */
 import type { Prisma, Space } from '@prisma/client';
 import { derived } from 'svelte/store';
-import type { MutationOptions, QueryOptions, CreateInfiniteQueryOptions } from '@tanstack/svelte-query';
+import type { MutationOptions, CreateQueryOptions, CreateInfiniteQueryOptions } from '@tanstack/svelte-query';
 import {
     SvelteQueryContextKey,
     type RequestHandlerContext,
@@ -83,7 +83,7 @@ export function useCreateManySpace(
 
 export function useFindManySpace<T extends Prisma.SpaceFindManyArgs>(
     args?: Prisma.SelectSubset<T, Prisma.SpaceFindManyArgs>,
-    options?: Omit<QueryOptions<Array<Prisma.SpaceGetPayload<T> & { $optimistic?: boolean }>>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Array<Prisma.SpaceGetPayload<T> & { $optimistic?: boolean }>>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -100,7 +100,7 @@ export function useInfiniteFindManySpace<T extends Prisma.SpaceFindManyArgs>(
 
 export function useFindUniqueSpace<T extends Prisma.SpaceFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.SpaceFindUniqueArgs>,
-    options?: Omit<QueryOptions<Prisma.SpaceGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Prisma.SpaceGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -109,7 +109,7 @@ export function useFindUniqueSpace<T extends Prisma.SpaceFindUniqueArgs>(
 
 export function useFindFirstSpace<T extends Prisma.SpaceFindFirstArgs>(
     args?: Prisma.SelectSubset<T, Prisma.SpaceFindFirstArgs>,
-    options?: Omit<QueryOptions<Prisma.SpaceGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Prisma.SpaceGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -296,7 +296,7 @@ export function useDeleteManySpace(
 
 export function useAggregateSpace<T extends Prisma.SpaceAggregateArgs>(
     args: Prisma.SelectSubset<T, Prisma.SpaceAggregateArgs>,
-    options?: Omit<QueryOptions<Prisma.GetSpaceAggregateType<T>>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Prisma.GetSpaceAggregateType<T>>, 'queryKey'>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery('Space', `${endpoint}/space/aggregate`, args, options, fetch);
@@ -354,7 +354,7 @@ export function useGroupBySpace<
 >(
     args: Prisma.SelectSubset<T, Prisma.SubsetIntersection<T, Prisma.SpaceGroupByArgs, OrderByArg> & InputErrors>,
     options?: Omit<
-        QueryOptions<
+        CreateQueryOptions<
             {} extends InputErrors
                 ? Array<
                       PickEnumerable<Prisma.SpaceGroupByOutputType, T['by']> & {
@@ -377,7 +377,7 @@ export function useGroupBySpace<
 export function useCountSpace<T extends Prisma.SpaceCountArgs>(
     args?: Prisma.SelectSubset<T, Prisma.SpaceCountArgs>,
     options?: Omit<
-        QueryOptions<
+        CreateQueryOptions<
             T extends { select: any }
                 ? T['select'] extends true
                     ? number

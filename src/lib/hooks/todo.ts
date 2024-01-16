@@ -1,7 +1,7 @@
 /* eslint-disable */
 import type { Prisma, Todo } from '@prisma/client';
 import { derived } from 'svelte/store';
-import type { MutationOptions, QueryOptions, CreateInfiniteQueryOptions } from '@tanstack/svelte-query';
+import type { MutationOptions, CreateQueryOptions, CreateInfiniteQueryOptions } from '@tanstack/svelte-query';
 import {
     SvelteQueryContextKey,
     type RequestHandlerContext,
@@ -83,7 +83,7 @@ export function useCreateManyTodo(
 
 export function useFindManyTodo<T extends Prisma.TodoFindManyArgs>(
     args?: Prisma.SelectSubset<T, Prisma.TodoFindManyArgs>,
-    options?: Omit<QueryOptions<Array<Prisma.TodoGetPayload<T> & { $optimistic?: boolean }>>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Array<Prisma.TodoGetPayload<T> & { $optimistic?: boolean }>>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -100,7 +100,7 @@ export function useInfiniteFindManyTodo<T extends Prisma.TodoFindManyArgs>(
 
 export function useFindUniqueTodo<T extends Prisma.TodoFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.TodoFindUniqueArgs>,
-    options?: Omit<QueryOptions<Prisma.TodoGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Prisma.TodoGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -109,7 +109,7 @@ export function useFindUniqueTodo<T extends Prisma.TodoFindUniqueArgs>(
 
 export function useFindFirstTodo<T extends Prisma.TodoFindFirstArgs>(
     args?: Prisma.SelectSubset<T, Prisma.TodoFindFirstArgs>,
-    options?: Omit<QueryOptions<Prisma.TodoGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Prisma.TodoGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -296,7 +296,7 @@ export function useDeleteManyTodo(
 
 export function useAggregateTodo<T extends Prisma.TodoAggregateArgs>(
     args: Prisma.SelectSubset<T, Prisma.TodoAggregateArgs>,
-    options?: Omit<QueryOptions<Prisma.GetTodoAggregateType<T>>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Prisma.GetTodoAggregateType<T>>, 'queryKey'>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery('Todo', `${endpoint}/todo/aggregate`, args, options, fetch);
@@ -354,7 +354,7 @@ export function useGroupByTodo<
 >(
     args: Prisma.SelectSubset<T, Prisma.SubsetIntersection<T, Prisma.TodoGroupByArgs, OrderByArg> & InputErrors>,
     options?: Omit<
-        QueryOptions<
+        CreateQueryOptions<
             {} extends InputErrors
                 ? Array<
                       PickEnumerable<Prisma.TodoGroupByOutputType, T['by']> & {
@@ -377,7 +377,7 @@ export function useGroupByTodo<
 export function useCountTodo<T extends Prisma.TodoCountArgs>(
     args?: Prisma.SelectSubset<T, Prisma.TodoCountArgs>,
     options?: Omit<
-        QueryOptions<
+        CreateQueryOptions<
             T extends { select: any }
                 ? T['select'] extends true
                     ? number

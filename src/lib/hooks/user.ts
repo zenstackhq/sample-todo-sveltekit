@@ -1,7 +1,7 @@
 /* eslint-disable */
 import type { Prisma, User } from '@prisma/client';
 import { derived } from 'svelte/store';
-import type { MutationOptions, QueryOptions, CreateInfiniteQueryOptions } from '@tanstack/svelte-query';
+import type { MutationOptions, CreateQueryOptions, CreateInfiniteQueryOptions } from '@tanstack/svelte-query';
 import {
     SvelteQueryContextKey,
     type RequestHandlerContext,
@@ -83,7 +83,7 @@ export function useCreateManyUser(
 
 export function useFindManyUser<T extends Prisma.UserFindManyArgs>(
     args?: Prisma.SelectSubset<T, Prisma.UserFindManyArgs>,
-    options?: Omit<QueryOptions<Array<Prisma.UserGetPayload<T> & { $optimistic?: boolean }>>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Array<Prisma.UserGetPayload<T> & { $optimistic?: boolean }>>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -100,7 +100,7 @@ export function useInfiniteFindManyUser<T extends Prisma.UserFindManyArgs>(
 
 export function useFindUniqueUser<T extends Prisma.UserFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.UserFindUniqueArgs>,
-    options?: Omit<QueryOptions<Prisma.UserGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Prisma.UserGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -109,7 +109,7 @@ export function useFindUniqueUser<T extends Prisma.UserFindUniqueArgs>(
 
 export function useFindFirstUser<T extends Prisma.UserFindFirstArgs>(
     args?: Prisma.SelectSubset<T, Prisma.UserFindFirstArgs>,
-    options?: Omit<QueryOptions<Prisma.UserGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Prisma.UserGetPayload<T> & { $optimistic?: boolean }>, 'queryKey'>,
     optimisticUpdate: boolean = true,
 ) {
     const { endpoint, fetch } = getHooksContext();
@@ -296,7 +296,7 @@ export function useDeleteManyUser(
 
 export function useAggregateUser<T extends Prisma.UserAggregateArgs>(
     args: Prisma.SelectSubset<T, Prisma.UserAggregateArgs>,
-    options?: Omit<QueryOptions<Prisma.GetUserAggregateType<T>>, 'queryKey'>,
+    options?: Omit<CreateQueryOptions<Prisma.GetUserAggregateType<T>>, 'queryKey'>,
 ) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery('User', `${endpoint}/user/aggregate`, args, options, fetch);
@@ -354,7 +354,7 @@ export function useGroupByUser<
 >(
     args: Prisma.SelectSubset<T, Prisma.SubsetIntersection<T, Prisma.UserGroupByArgs, OrderByArg> & InputErrors>,
     options?: Omit<
-        QueryOptions<
+        CreateQueryOptions<
             {} extends InputErrors
                 ? Array<
                       PickEnumerable<Prisma.UserGroupByOutputType, T['by']> & {
@@ -377,7 +377,7 @@ export function useGroupByUser<
 export function useCountUser<T extends Prisma.UserCountArgs>(
     args?: Prisma.SelectSubset<T, Prisma.UserCountArgs>,
     options?: Omit<
-        QueryOptions<
+        CreateQueryOptions<
             T extends { select: any }
                 ? T['select'] extends true
                     ? number
