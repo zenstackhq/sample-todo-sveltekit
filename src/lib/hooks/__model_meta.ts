@@ -257,13 +257,13 @@ const metadata = {
             },
         },
         spaceUser: {
-            userId_spaceId: {
-                name: 'userId_spaceId',
-                fields: ['userId', 'spaceId'],
-            },
             id: {
                 name: 'id',
                 fields: ['id'],
+            },
+            userId_spaceId: {
+                name: 'userId_spaceId',
+                fields: ['userId', 'spaceId'],
             },
         },
         user: {
