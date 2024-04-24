@@ -9,7 +9,6 @@
     let title = '';
     let _private = false;
 
-    const user = getContext<{ id: string }>('currentUser');
     const createList = useCreateList();
 
     export let space: Space;
@@ -35,7 +34,6 @@
                 spaceId: space.id,
                 title,
                 private: _private,
-                ownerId: user.id,
             },
         });
     }

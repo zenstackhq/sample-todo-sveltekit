@@ -29,7 +29,6 @@ export const actions = {
             data: {
                 title,
                 list: { connect: { id: params.listId } },
-                owner: { connect: { id: locals.user!.id } },
             },
         });
     },
