@@ -1,5 +1,5 @@
 /* eslint-disable */
-import type { Prisma, SpaceUser } from ".zenstack/models";
+import type { Prisma, SpaceUser } from "@zenstackhq/runtime/models";
 import { derived } from 'svelte/store';
 import type { MutationOptions, CreateQueryOptions, CreateInfiniteQueryOptions } from '@tanstack/svelte-query';
 import type { InfiniteData, StoreOrVal } from '@tanstack/svelte-query';
