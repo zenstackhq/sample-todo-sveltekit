@@ -58,7 +58,6 @@ model User {
   email    String      @unique()
   /// @password
   /// @omit
-  /// @length(6, 32)
   password String
   name     String?
   spaces   SpaceUser[]
