@@ -55,8 +55,8 @@ export function useFindManySpace<TArgs extends Prisma.SpaceFindManyArgs, TQueryF
     return useModelQuery<TQueryFnData, TData, TError>('Space', `${endpoint}/space/findMany`, args, options, fetch);
 }
 
-export function useInfiniteFindManySpace<TArgs extends Prisma.SpaceFindManyArgs, TQueryFnData = Array<Prisma.SpaceGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.SpaceFindManyArgs>, options?: StoreOrVal<Omit<CreateInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey'>>) {
-    options = options ?? { initialPageParam: undefined, getNextPageParam: () => null };
+export function useInfiniteFindManySpace<TArgs extends Prisma.SpaceFindManyArgs, TQueryFnData = Array<Prisma.SpaceGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.SpaceFindManyArgs>, options?: StoreOrVal<Omit<CreateInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey' | 'initialPageParam'>>) {
+    options = options ?? { getNextPageParam: () => null };
     const { endpoint, fetch } = getHooksContext();
     return useInfiniteModelQuery<TQueryFnData, TData, TError>('Space', `${endpoint}/space/findMany`, args, options, fetch);
 }

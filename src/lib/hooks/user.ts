@@ -55,8 +55,8 @@ export function useFindManyUser<TArgs extends Prisma.UserFindManyArgs, TQueryFnD
     return useModelQuery<TQueryFnData, TData, TError>('User', `${endpoint}/user/findMany`, args, options, fetch);
 }
 
-export function useInfiniteFindManyUser<TArgs extends Prisma.UserFindManyArgs, TQueryFnData = Array<Prisma.UserGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.UserFindManyArgs>, options?: StoreOrVal<Omit<CreateInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey'>>) {
-    options = options ?? { initialPageParam: undefined, getNextPageParam: () => null };
+export function useInfiniteFindManyUser<TArgs extends Prisma.UserFindManyArgs, TQueryFnData = Array<Prisma.UserGetPayload<TArgs>>, TData = TQueryFnData, TError = DefaultError>(args?: Prisma.SelectSubset<TArgs, Prisma.UserFindManyArgs>, options?: StoreOrVal<Omit<CreateInfiniteQueryOptions<TQueryFnData, TError, InfiniteData<TData>>, 'queryKey' | 'initialPageParam'>>) {
+    options = options ?? { getNextPageParam: () => null };
     const { endpoint, fetch } = getHooksContext();
     return useInfiniteModelQuery<TQueryFnData, TData, TError>('User', `${endpoint}/user/findMany`, args, options, fetch);
 }
