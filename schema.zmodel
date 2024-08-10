@@ -77,7 +77,7 @@ model SpaceUser {
 model User {
   id       String      @id @default(cuid())
   email    String      @unique @email
-  password String      @password @omit @length(6, 32)
+  password String      @password @omit
   name     String?
   spaces   SpaceUser[]
   todos    Todo[]
