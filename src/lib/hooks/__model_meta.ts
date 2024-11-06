@@ -191,9 +191,9 @@ const metadata = {
                     name: "ownerId",
                     type: "String",
                     attributes: [{ "name": "@default", "args": [] }],
+                    defaultValueProvider: $default$List$ownerId,
                     isForeignKey: true,
                     relationField: 'owner',
-                    defaultValueProvider: $default$List$ownerId,
                 }, title: {
                     name: "title",
                     type: "String",
@@ -244,9 +244,9 @@ const metadata = {
                     name: "ownerId",
                     type: "String",
                     attributes: [{ "name": "@default", "args": [] }],
+                    defaultValueProvider: $default$Todo$ownerId,
                     isForeignKey: true,
                     relationField: 'owner',
-                    defaultValueProvider: $default$Todo$ownerId,
                 }, list: {
                     name: "list",
                     type: "List",
