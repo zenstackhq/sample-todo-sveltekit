@@ -22,6 +22,7 @@ export const actions = {
                 data: {
                     name,
                     slug,
+                    owner: { connect: { id: locals.user.id } },
                     members: {
                         create: {
                             user: { connect: { id: locals.user.id } },

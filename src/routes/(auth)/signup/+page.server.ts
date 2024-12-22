@@ -35,6 +35,7 @@ export const actions = {
                 data: {
                     name: `My Space`,
                     slug: nanoid(8),
+                    owner: { connect: { id: user.id } },
                     members: {
                         create: {
                             user: { connect: { id: user.id } },

@@ -29,6 +29,8 @@ model Space {
   id        String      @id @default(uuid())
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
+  owner     User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId   String      @default(auth().id)
   name      String      @length(4, 50)
   slug      String      @unique @regex('^[0-9a-zA-Z\-_]{4,16}$')
   members   SpaceUser[]
@@ -64,8 +66,14 @@ model SpaceUser {
   // require login
   @@deny('all', auth() == null)
 
-  // space admin can create/update/delete
-  @@allow('create,update,delete', space.members?[user == auth() && role == ADMIN])
+  // space owner can add any one
+  @@allow('create', space.owner == auth())
+    
+  // space admin can add anyone but not himself
+  @@allow('create', auth() != user && space.members?[user == auth() && role == ADMIN])
+
+  // space admin can update/delete
+  @@allow('update,delete', space.members?[user == auth() && role == ADMIN])
 
   // user can read entries for spaces which he's a member of
   @@allow('read', space.members?[user == auth()])
@@ -75,13 +83,14 @@ model SpaceUser {
   * User model
   */
 model User {
-  id       String      @id @default(cuid())
-  email    String      @unique @email
-  password String      @password @omit @length(6, 32)
-  name     String?
-  spaces   SpaceUser[]
-  todos    Todo[]
-  lists    List[]
+  id          String      @id @default(cuid())
+  email       String      @unique @email
+  password    String      @password @omit @length(6, 32)
+  name        String?
+  ownedSpaces Space[]
+  memberships SpaceUser[]
+  todos       Todo[]
+  lists       List[]
   @@allow('create,read', true)
   @@allow('all', auth() == this)
 }
