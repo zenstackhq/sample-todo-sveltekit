@@ -55,8 +55,7 @@ const metadata = {
                     isArray: true,
                     backLink: 'space',
                 },
-            }
-            , uniqueConstraints: {
+            }, uniqueConstraints: {
                 id: {
                     name: "id",
                     fields: ["id"]
@@ -64,10 +63,8 @@ const metadata = {
                     name: "slug",
                     fields: ["slug"]
                 },
-            }
-            ,
-        }
-        ,
+            },
+        },
         spaceUser: {
             name: 'SpaceUser', fields: {
                 id: {
@@ -111,8 +108,7 @@ const metadata = {
                     name: "role",
                     type: "SpaceUserRole",
                 },
-            }
-            , uniqueConstraints: {
+            }, uniqueConstraints: {
                 id: {
                     name: "id",
                     fields: ["id"]
@@ -120,10 +116,8 @@ const metadata = {
                     name: "userId_spaceId",
                     fields: ["userId", "spaceId"]
                 },
-            }
-            ,
-        }
-        ,
+            },
+        },
         user: {
             name: 'User', fields: {
                 id: {
@@ -166,8 +160,7 @@ const metadata = {
                     isArray: true,
                     backLink: 'owner',
                 },
-            }
-            , uniqueConstraints: {
+            }, uniqueConstraints: {
                 id: {
                     name: "id",
                     fields: ["id"]
@@ -175,10 +168,8 @@ const metadata = {
                     name: "email",
                     fields: ["email"]
                 },
-            }
-            ,
-        }
-        ,
+            },
+        },
         list: {
             name: 'List', fields: {
                 id: {
@@ -234,16 +225,13 @@ const metadata = {
                     isArray: true,
                     backLink: 'list',
                 },
-            }
-            , uniqueConstraints: {
+            }, uniqueConstraints: {
                 id: {
                     name: "id",
                     fields: ["id"]
                 },
-            }
-            ,
-        }
-        ,
+            },
+        },
         todo: {
             name: 'Todo', fields: {
                 id: {
@@ -293,26 +281,25 @@ const metadata = {
                     type: "DateTime",
                     isOptional: true,
                 },
-            }
-            , uniqueConstraints: {
+            }, uniqueConstraints: {
                 id: {
                     name: "id",
                     fields: ["id"]
                 },
-            }
-            ,
-        }
-        ,
-    }
-    ,
+            },
+        },
+
+    },
     deleteCascade: {
         space: ['SpaceUser', 'List'],
         user: ['Space', 'SpaceUser', 'List', 'Todo'],
         list: ['Todo'],
-    }
-    ,
+
+    },
     authModel: 'User'
+
 };
+
 function $default$Space$ownerId(user: any): unknown {
     return user?.id;
 }
