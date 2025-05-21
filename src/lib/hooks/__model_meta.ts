@@ -28,6 +28,7 @@ const metadata = {
                     isDataModel: true,
                     backLink: 'ownedSpaces',
                     isRelationOwner: true,
+                    onDeleteAction: 'Cascade',
                     foreignKeyMapping: { "id": "ownerId" },
                 }, ownerId: {
                     name: "ownerId",
@@ -86,6 +87,7 @@ const metadata = {
                     isDataModel: true,
                     backLink: 'members',
                     isRelationOwner: true,
+                    onDeleteAction: 'Cascade',
                     foreignKeyMapping: { "id": "spaceId" },
                 }, spaceId: {
                     name: "spaceId",
@@ -98,6 +100,7 @@ const metadata = {
                     isDataModel: true,
                     backLink: 'memberships',
                     isRelationOwner: true,
+                    onDeleteAction: 'Cascade',
                     foreignKeyMapping: { "id": "userId" },
                 }, userId: {
                     name: "userId",
@@ -191,6 +194,7 @@ const metadata = {
                     isDataModel: true,
                     backLink: 'lists',
                     isRelationOwner: true,
+                    onDeleteAction: 'Cascade',
                     foreignKeyMapping: { "id": "spaceId" },
                 }, spaceId: {
                     name: "spaceId",
@@ -203,6 +207,7 @@ const metadata = {
                     isDataModel: true,
                     backLink: 'lists',
                     isRelationOwner: true,
+                    onDeleteAction: 'Cascade',
                     foreignKeyMapping: { "id": "ownerId" },
                 }, ownerId: {
                     name: "ownerId",
@@ -253,6 +258,7 @@ const metadata = {
                     isDataModel: true,
                     backLink: 'todos',
                     isRelationOwner: true,
+                    onDeleteAction: 'Cascade',
                     foreignKeyMapping: { "id": "ownerId" },
                 }, ownerId: {
                     name: "ownerId",
@@ -267,6 +273,7 @@ const metadata = {
                     isDataModel: true,
                     backLink: 'todos',
                     isRelationOwner: true,
+                    onDeleteAction: 'Cascade',
                     foreignKeyMapping: { "id": "listId" },
                 }, listId: {
                     name: "listId",
