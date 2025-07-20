@@ -13,11 +13,11 @@ const metadata = {
                     name: "id",
                     type: "String",
                     isId: true,
-                    attributes: [{ "name": "@default", "args": [] }],
+                    attributes: [{ "name": "@default", "args": [{ "name": "value" }] }],
                 }, createdAt: {
                     name: "createdAt",
                     type: "DateTime",
-                    attributes: [{ "name": "@default", "args": [] }],
+                    attributes: [{ "name": "@default", "args": [{ "name": "value" }] }],
                 }, updatedAt: {
                     name: "updatedAt",
                     type: "DateTime",
@@ -33,7 +33,7 @@ const metadata = {
                 }, ownerId: {
                     name: "ownerId",
                     type: "String",
-                    attributes: [{ "name": "@default", "args": [] }],
+                    attributes: [{ "name": "@default", "args": [{ "name": "value" }] }],
                     defaultValueProvider: $default$Space$ownerId,
                     isForeignKey: true,
                     relationField: 'owner',
@@ -72,11 +72,11 @@ const metadata = {
                     name: "id",
                     type: "String",
                     isId: true,
-                    attributes: [{ "name": "@default", "args": [] }],
+                    attributes: [{ "name": "@default", "args": [{ "name": "value" }] }],
                 }, createdAt: {
                     name: "createdAt",
                     type: "DateTime",
-                    attributes: [{ "name": "@default", "args": [] }],
+                    attributes: [{ "name": "@default", "args": [{ "name": "value" }] }],
                 }, updatedAt: {
                     name: "updatedAt",
                     type: "DateTime",
@@ -127,7 +127,7 @@ const metadata = {
                     name: "id",
                     type: "String",
                     isId: true,
-                    attributes: [{ "name": "@default", "args": [] }],
+                    attributes: [{ "name": "@default", "args": [{ "name": "value" }] }],
                 }, email: {
                     name: "email",
                     type: "String",
@@ -179,11 +179,11 @@ const metadata = {
                     name: "id",
                     type: "String",
                     isId: true,
-                    attributes: [{ "name": "@default", "args": [] }],
+                    attributes: [{ "name": "@default", "args": [{ "name": "value" }] }],
                 }, createdAt: {
                     name: "createdAt",
                     type: "DateTime",
-                    attributes: [{ "name": "@default", "args": [] }],
+                    attributes: [{ "name": "@default", "args": [{ "name": "value" }] }],
                 }, updatedAt: {
                     name: "updatedAt",
                     type: "DateTime",
@@ -212,7 +212,7 @@ const metadata = {
                 }, ownerId: {
                     name: "ownerId",
                     type: "String",
-                    attributes: [{ "name": "@default", "args": [] }],
+                    attributes: [{ "name": "@default", "args": [{ "name": "value" }] }],
                     defaultValueProvider: $default$List$ownerId,
                     isForeignKey: true,
                     relationField: 'owner',
@@ -222,7 +222,7 @@ const metadata = {
                 }, private: {
                     name: "private",
                     type: "Boolean",
-                    attributes: [{ "name": "@default", "args": [{ "value": false }] }],
+                    attributes: [{ "name": "@default", "args": [{ "name": "value", "value": false }] }],
                 }, todos: {
                     name: "todos",
                     type: "Todo",
@@ -243,11 +243,11 @@ const metadata = {
                     name: "id",
                     type: "String",
                     isId: true,
-                    attributes: [{ "name": "@default", "args": [] }],
+                    attributes: [{ "name": "@default", "args": [{ "name": "value" }] }],
                 }, createdAt: {
                     name: "createdAt",
                     type: "DateTime",
-                    attributes: [{ "name": "@default", "args": [] }],
+                    attributes: [{ "name": "@default", "args": [{ "name": "value" }] }],
                 }, updatedAt: {
                     name: "updatedAt",
                     type: "DateTime",
@@ -263,7 +263,7 @@ const metadata = {
                 }, ownerId: {
                     name: "ownerId",
                     type: "String",
-                    attributes: [{ "name": "@default", "args": [] }],
+                    attributes: [{ "name": "@default", "args": [{ "name": "value" }] }],
                     defaultValueProvider: $default$Todo$ownerId,
                     isForeignKey: true,
                     relationField: 'owner',
