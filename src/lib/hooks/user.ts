@@ -3,7 +3,6 @@
  ******************************************************************************/
 
 /* eslint-disable */
-// @ts-nocheck
 
 import type { Prisma, User } from "@zenstackhq/runtime/models";
 import { derived } from 'svelte/store';
@@ -225,13 +224,13 @@ export function useGroupByUser<TArgs extends Prisma.UserGroupByArgs, HasSelectOr
         : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
     }[OrderFields], TQueryFnData = {} extends InputErrors ?
     Array<PickEnumerable<Prisma.UserGroupByOutputType, TArgs['by']> &
-        {
-            [P in ((keyof TArgs) & (keyof Prisma.UserGroupByOutputType))]: P extends '_count'
-            ? TArgs[P] extends boolean
-            ? number
-            : Prisma.GetScalarType<TArgs[P], Prisma.UserGroupByOutputType[P]>
-            : Prisma.GetScalarType<TArgs[P], Prisma.UserGroupByOutputType[P]>
-        }
+    {
+        [P in ((keyof TArgs) & (keyof Prisma.UserGroupByOutputType))]: P extends '_count'
+        ? TArgs[P] extends boolean
+        ? number
+        : Prisma.GetScalarType<TArgs[P], Prisma.UserGroupByOutputType[P]>
+        : Prisma.GetScalarType<TArgs[P], Prisma.UserGroupByOutputType[P]>
+    }
     > : InputErrors, TData = TQueryFnData, TError = DefaultError>(args: Prisma.SelectSubset<TArgs, Prisma.SubsetIntersection<TArgs, Prisma.UserGroupByArgs, OrderByArg> & InputErrors>, options?: (StoreOrVal<Omit<CreateQueryOptions<TQueryFnData, TError, TData>, 'queryKey'>> & ExtraQueryOptions)) {
     const { endpoint, fetch } = getHooksContext();
     return useModelQuery<TQueryFnData, TData, TError>('User', `${endpoint}/user/groupBy`, args, options, fetch);

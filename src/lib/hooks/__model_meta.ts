@@ -3,9 +3,10 @@
  ******************************************************************************/
 
 /* eslint-disable */
-// @ts-nocheck
 
-const metadata = {
+import type { ModelMeta } from "@zenstackhq/runtime";
+
+const metadata: ModelMeta = {
     models: {
         space: {
             name: 'Space', fields: {
